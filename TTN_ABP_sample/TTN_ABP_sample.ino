@@ -41,7 +41,7 @@
  * を、The Things Networkで取得した値に変更してください。
  */
 // デバイスアドレス
-static const u4_t DEVADDR = 0x26041BBC;
+static const u4_t DEVADDR = 0x00000000;
 // ネットワークセッションキー
 static const PROGMEM u1_t NWKSKEY[16] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 // アプリケーションセッションキー
@@ -56,7 +56,7 @@ void os_getDevKey (u1_t* buf) { }
 static uint8_t mydata[2];
 
 // 送信待ち時間
-const unsigned TX_INTERVAL = 20;
+const unsigned TX_INTERVAL = 10;
 
 static osjob_t initjob,sendjob,blinkjob;
 
@@ -119,7 +119,7 @@ void setup() {
     
     Serial.begin(9600);
 
-    while(!Serial);
+    //while(!Serial);
     
     Serial.println("Starting");
     

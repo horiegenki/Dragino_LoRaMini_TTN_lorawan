@@ -52,18 +52,12 @@ void os_getArtEui (u1_t* buf) { memcpy_P(buf, APPEUI, 8);}
 void os_getDevEui (u1_t* buf) { memcpy_P(buf, DEVEUI, 8);}
 void os_getDevKey (u1_t* buf) {  memcpy_P(buf, APPKEY, 16);}
 
-
-// 以下の変数はOTAAでアクティベーションする際に、TTNから割り当てられる値となります。
-void os_getArtEui (u1_t* buf) { }
-void os_getDevEui (u1_t* buf) { }
-void os_getDevKey (u1_t* buf) { }
-
 static uint8_t mydata[4];
 static osjob_t initjob,sendjob,blinkjob;
 
 // Schedule TX every this many seconds (might become longer due to duty
 // cycle limitations).
-const unsigned TX_INTERVAL = 20;
+const unsigned TX_INTERVAL = 1;
 
 DHT dht(dht_dpin, DHTTYPE);
 
@@ -89,17 +83,10 @@ void do_send(osjob_t* j){
     if (LMIC.opmode & OP_TXRXPEND) {
         Serial.println("OP_TXRXPEND, not sending");
     } else {
-
-        // TTN uses SF9 for its RX2 window.
-        LMIC.dn2Dr = AS923_DR_SF9;
         Serial.println(F("LMIC SET DN"));
-        // Set data rate and transmit power (note: txpow seems to be ignored by the library)
-        LMIC_setDrTxpow(AS923_DR_SF10,13);
-
         // Prepare upstream data transmission at the next possible time.
         LMIC_setTxData2(1, lpp.getBuffer(), lpp.getSize(), 0);
         Serial.println("Packet queued");
-        Serial.println(LMIC.freq);
     }
     // Next TX is scheduled after TX_COMPLETE event.
 }
@@ -178,7 +165,7 @@ void setup() {
     
     Serial.begin(9600);
 
-    while(!Serial);
+    //while(!Serial);
     
     Serial.println("Starting");
     

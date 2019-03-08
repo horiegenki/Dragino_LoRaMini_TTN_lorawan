@@ -58,7 +58,7 @@ static osjob_t initjob,sendjob,blinkjob;
 
 // Schedule TX every this many seconds (might become longer due to duty
 // cycle limitations).
-const unsigned TX_INTERVAL = 20;
+const unsigned TX_INTERVAL = 1;
 
 DHT dht(dht_dpin, DHTTYPE);
 
