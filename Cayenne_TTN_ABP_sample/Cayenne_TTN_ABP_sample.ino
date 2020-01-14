@@ -155,7 +155,7 @@ void setup() {
     LMIC.dn2Dr = DR_SF9;
     
     // Set data rate and transmit power (note: txpow seems to be ignored by the library)
-    LMIC_setDrTxpow(DR_SF7,14);
+    LMIC_setDrTxpow(DR_SF10,14);
 
     dht.begin();
 
